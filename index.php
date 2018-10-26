@@ -1,12 +1,26 @@
 <?php
 
+//to let the request branched into `controller` and `method` .
+//ex: home/index -> controller `home` , method `index` . 
 $url = $_GET['url'];
+//in case if there is a lot of slashes
+$url = rtrim($url,'/');
+$url = explode('/',$url);
 
-require "controllers/$url.php" ;
+
+//controllers
+require "controllers/$url[0].php" ;
+$controller = new $url[0] ; 
+
+//more argumet  [id]   posts/sports/id
+if (isset($url[2])) {
+	$controller->{$url[1]}(10);
+} else {
+	//methods
+	if (isset($url[1])) {
+		$controller->{$url[1]}();
+	}
+}
 
 
-$controller = new $url ; 
 
-//when we request  a url like "test.com/home" it reloads a controller
-//
-//and if we request "test.com/home/index" it reloads a controller `home` with method `index`
