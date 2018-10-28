@@ -10,6 +10,6 @@ class Controller
 	{
 		echo "<br> This is base controller <br>";
 		//load the view 
-		$this->view = new View;
+		$this->view = new View();
 	}
 }

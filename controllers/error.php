@@ -3,7 +3,7 @@
 /**
  * Error Class
  */
-class ErrorHandler extends Controller
+class Error extends Controller
 {
 	
 	function __construct()

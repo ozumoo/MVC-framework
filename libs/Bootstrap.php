@@ -16,11 +16,11 @@ class Bootstrap
 		$file = "controllers/" ."$url[0]".  ".php";
 		if (file_exists($file)) {
 			require $file  ;
-			$error = new ErrorHandler();
+			$error = new Error();
 			
 		} else {
 			require "controllers/error.php"; 
-			$error = new ErrorHandler();
+			$error = new Error();
 			return false;
 		}
 		$controller = new $url[0] ; 
