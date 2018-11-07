@@ -9,6 +9,15 @@ class Index extends Controller
 	function __construct()
 	{
 		parent::__construct();
-		echo "we are in index";
+	}
+	function index()
+	{
+		echo "index index ";
+		$this->view->render('index/index');
+	}
+	function details()
+	{
+		$this->view->render('index/index');
+		
 	}
 }

@@ -10,4 +10,9 @@ class Help_Model extends Model
 	{
 		echo "<br> Help Model";
 	}
+	function blah()
+	{
+		return 10 + 10 ;
+	}
+
 }
