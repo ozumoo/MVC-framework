@@ -1,3 +1,3 @@
 <?php
 
-define('URL', 'http://localhost:8010/');
+define('URL', 'example.com');

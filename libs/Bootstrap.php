@@ -12,7 +12,8 @@ class Bootstrap
 		$url = rtrim($url,'/');
 		$url = explode('/',$url);
 
-		// print_r($url);
+		print_r($url);
+		die();
 
 		if (empty($url[0])) {
 			require 'controllers/index.php';
