@@ -11,9 +11,14 @@ class Login extends Controller
 		parent::__construct();
 	}
 
-	function index()
+	public function index()
 	{
 		$this->view->render('login/index');
-		
 	}
+	public function run()
+	{
+		$this->model->run();
+	}
+
+
 }

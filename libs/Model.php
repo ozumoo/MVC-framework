@@ -9,5 +9,6 @@ class Model
 	function __construct()
 	{
 		echo "Inside Base Model";
+		$this->db = new Database();
 	}
 }

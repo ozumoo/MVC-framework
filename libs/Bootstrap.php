@@ -12,9 +12,7 @@ class Bootstrap
 		$url = rtrim($url,'/');
 		$url = explode('/',$url);
 
-		print_r($url);
-		die();
-
+		//if empty  --> return default controller [HomePage]
 		if (empty($url[0])) {
 			require 'controllers/index.php';
 			$controller = new Index();
@@ -24,27 +22,28 @@ class Bootstrap
 
 		//controllers
 		$file = "controllers/" ."$url[0]".  ".php";
+		//if exists --> require this file 
 		if (file_exists($file)) {
 			require $file  ;
-			$error = new Error();
-			
 		} else {
 			require "controllers/error.php"; 
 			$error = new ErrorController();
 			return false;
 		}
+		//Load Controller -- it's model
 		$controller = new $url[0] ; 
+		$controller->loadModel($url[0]);
 
 		//more argumet  [id]   posts/sports/id
 		if (isset($url[2])) {
 			if (method_exists($controller,$url[1])) {
 				$controller->{$url[1]}(10);
 			} else {
-				echo "errr";
+				echo "No parameter is found";
 			}
 
  		} else {
-			//methods
+			//methods 
 			if (isset($url[1])) {
 				$controller->{$url[1]}();
  			} else {
