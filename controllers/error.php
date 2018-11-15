@@ -5,17 +5,15 @@
  */
 class ErrorController extends Controller
 {
-	private $msg="text" ; 
 	function __construct()
 	{
 		parent::__construct();
-		// echo "<br> Error <br>";
-	
+		$this->index();
 	}
 
-	function index()
+	public function index()
 	{
+		$this->view->errorMessage = "this page doesn't exist";
 		$this->view->render('error/index');
-		$this->view->msg = "this page doesn't exist";
 	}
 }

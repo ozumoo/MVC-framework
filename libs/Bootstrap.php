@@ -12,6 +12,7 @@ class Bootstrap
 		$url = rtrim($url,'/');
 		$url = explode('/',$url);
 
+
 		//if empty  --> return default controller [HomePage]
 		if (empty($url[0])) {
 			require 'controllers/index.php';
