@@ -17,7 +17,7 @@ class User_model extends Model
 		return $sth->fetchAll();
 	}
 	public function userSingleList($id)
-	{
+	{ 
 		$sth = $this->db->prepare("SELECT id , login , role  FROM users WHERE id = :id");
 		$sth->execute(array(
 			':id' => $id
@@ -30,7 +30,7 @@ class User_model extends Model
 		$sth = $this->db->prepare('INSERT INTO users (`login`,`password`,`role`) VALUES (:login,:password,:role)	');
 		$sth->execute(array(
 			':login' => $data['login'] , 
-			':password' => $data['password'] ,
+			':password' => Hash::create('md5', $data['password'] , HASH_PASSWORD_KEY) ,
 			':role' => $data['role']
 		));
 	}
@@ -40,7 +40,7 @@ class User_model extends Model
 		$sth->execute(array(
 			':id'  => $data['id'],
 			':login' => $data['login'] , 
-			':password' => md5($data['password'])  ,
+			':password' => Hash::create('md5', $data['password'] , HASH_PASSWORD_KEY) ,
 			':role' => $data['role']
 		));
 	}		
