@@ -27,6 +27,12 @@ class User_model extends Model
 
 	public function create($data)
 	{
+		$this->model->insert('users' , array(
+			'login' => 'test' ,
+			'password' => 'test' ,
+			'role' => 'test' ,
+		));
+		die();
 		$sth = $this->db->prepare('INSERT INTO users (`login`,`password`,`role`) VALUES (:login,:password,:role)	');
 		$sth->execute(array(
 			':login' => $data['login'] , 
