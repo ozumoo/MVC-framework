@@ -7,6 +7,23 @@ class Database extends PDO {
 		parent::__construct($DB_TYPE . ':host=' . $DB_HOST .';dbname=' . $DB_NAME , $DB_USER , $DB_PASS);
 	}
 	/**
+	 * [select]
+	 * @param  [string] $sql  [SQL string]
+	 * @param  [array ] $data [description]
+	 * @param  [array ] $data [description]
+	 * @return [mixed]
+	 */
+	public function select($sql , $data = array() , $fetchMode = PDO::FETCH_ASSOC)
+	{
+		$sth = $this->prepare($sql);
+		foreach ($data as $key => $value) {
+			$sth->bindValue(":$key",$value);
+		}
+
+		$sth->execute();
+		return $sth->fetchAll($fetchMode);
+	}
+	/**
 	 * Insert data into database
 	 * @param  [string] $table [name of table we gonna to insert]
 	 * @param  [string] $data  [associative array]
@@ -50,5 +67,16 @@ class Database extends PDO {
 			$sth->bindValue(":$key" ,$value);
 		}
 		$sth->execute();
+	}
+	/**
+	 * [delete rows from database]
+	 * @param  [string]  $table  
+	 * @param  [string]  $where  
+	 * @param  integer $limit 
+	 * @return [integer]      [Affected Rows]
+	 */
+	public function delete($table,$where,$limit=1)
+	{
+		return $this->exec("DELETE FROM $table WHERE $where LIMIT $limit");
 	}
 }

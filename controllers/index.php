@@ -12,7 +12,6 @@ class Index extends Controller
 	}
 	function index()
 	{
-		echo "index index ";
 		$this->view->render('index/index');
 	}
 	function details()
