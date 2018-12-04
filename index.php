@@ -8,7 +8,7 @@ require 'config/constants.php';
 
 #ToDo use [autoloader]
 function __autoload($class)
-{
+{	
 	$className = LIBS . $class . ".php"; 
 	require  $className;
 }

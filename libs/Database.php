@@ -14,19 +14,17 @@ class Database extends PDO {
 	 */
 	public function insert($table , $data)
 	{
-		
-		var_dump($data);
 		ksort($data);
-		die();
-		$sth = $this->db->prepare("INSERT INTO $table
-			(`login`,`password`,`role`) 
-			VALUES (:login,:password,:role)	
-		");
-		$sth->execute(array(
-			':login' => $data['login'] , 
-			':password' => Hash::create('md5', $data['password'] , HASH_PASSWORD_KEY) ,
-			':role' => $data['role']
-		));
+
+		$fieldNames = implode('`,`', array_keys($data));
+		$fieldValues = ':' . implode(', :', array_keys($data));
+		
+		$sth = $this->prepare("INSERT INTO $table (`$fieldNames`)  VALUES ($fieldValues)");
+		
+		foreach ($data as $key => $value) {
+			$sth->bindValue(":$key" ,$value);
+		}
+		$sth->execute();
 	}
 
 	/**
@@ -38,14 +36,19 @@ class Database extends PDO {
 	*/
 	public function update($table , $data , $where)
 	{
-		$sth = $this->db->prepare("INSERT INTO $table
-			(`login`,`password`,`role`) 
-			VALUES (:login,:password,:role)	
-		");
-		$sth->execute(array(
-			':login' => $data['login'] , 
-			':password' => Hash::create('md5', $data['password'] , HASH_PASSWORD_KEY) ,
-			':role' => $data['role']
-		));
+		ksort($data);
+
+		$fieldDetails = null;
+		foreach ($data as $key => $value) {
+			$fieldDetails .= "`$key` = :$key,";
+		}
+		$fieldDetails = rtrim($fieldDetails , ',');
+		
+		$sth = $this->prepare("UPDATE  $table SET $fieldDetails  WHERE $where");
+		
+		foreach ($data as $key => $value) {
+			$sth->bindValue(":$key" ,$value);
+		}
+		$sth->execute();
 	}
 }
